@@ -34,6 +34,8 @@ Route::prefix('v1')->group(function () {
 
 
     Route::get('orders', [OrderController::class, 'index']);
+    Route::put('orders/{id}',[OrderController::class,'update']);
+
     Route::post('orders', [OrderController::class, 'store']);
     Route::get('foods', [FoodController::class, 'index']);
     Route::get('foods/{id}',[FoodController::class,'show']);

@@ -18,6 +18,6 @@ class Restaurant extends Model
     ];
 
     public function food(){
-        return $this->belongsTo(Food::class);
+        return $this->hasMany(Food::class);
     }
 }

@@ -18,11 +18,13 @@ class OrderController extends Controller
     {
         //$orders=Order::find(9)->food; //show food for order id=9
 
-        $orders=DB::table('orders')         //Show all food for all orders
-            ->join('food_order','order_id','=','food_order.order_id')
-            ->join('food','food_id','=' , 'food.id')
-            ->select('food.name')
-            ->get();
+//        $orders=DB::table('orders')         //Show all food seperatly
+//            ->join('food_order','order_id','=','food_order.order_id')
+//            ->join('food','food_id','=' , 'food.id')
+//            ->select('food.name')
+//            ->get();
+
+        $orders=Order::all()->where('active','=','1');
 
 
 
@@ -67,7 +69,10 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $changeOrderStatus=Order::find($id);
+        $changeOrderStatus->active='0';
+        $changeOrderStatus->update();
+        return $changeOrderStatus;
     }
 
     /**
@@ -78,6 +83,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
