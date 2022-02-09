@@ -21,44 +21,29 @@ class DatabaseSeeder extends Seeder
         $food=  Food::create([
             'name'=>'Chicken pasta',
             'description'=>'opis hrane',
-            'image'=>'public/RtWBDh3Ez08L82VgZDQOc0mE3QEAod6Pe65EZYSO.jpg',
+            'image'=>'products/6Ygsc8wI4w7ECPldc0wlzc4ynIDFoBUeXEfg8ZdI.jpg',
             'price'=>'300',
             'restaurant_id'=>1,
 
 
         ]);
         $food=  Food::create([
-            'name'=>'Chicken pasta',
+            'name'=>'Burger',
             'description'=>'opis hrane',
-            'image'=>'public/RtWBDh3Ez08L82VgZDQOc0mE3QEAod6Pe65EZYSO.jpg',
+            'image'=>'products/6Ygsc8wI4w7ECPldc0wlzc4ynIDFoBUeXEfg8ZdI.jpg',
             'price'=>'300',
             'restaurant_id'=>1
 
         ]);
         $food=  Food::create([
-            'name'=>'Chicken pasta',
+            'name'=>'Pancakes',
             'description'=>'opis hrane',
-            'image'=>'public/slika.jpg',
+            'image'=>'products/6Ygsc8wI4w7ECPldc0wlzc4ynIDFoBUeXEfg8ZdI.jpg',
             'price'=>'300',
             'restaurant_id'=>1
 
         ]);
-        $food=  Food::create([
-            'name'=>'Chicken pasta',
-            'description'=>'opis hrane',
-            'image'=>'storage/app/public/slika.jpg',
-            'price'=>'300',
-            'restaurant_id'=>1
 
-        ]);
-        $food=  Food::create([
-            'name'=>'Chicken pasta',
-            'description'=>'opis hrane',
-            'image'=>'upolads/downolad.jfif',
-            'price'=>'300',
-            'restaurant_id'=>1
-
-        ]);
 
         $restaurant=Restaurant::create([
             'name'=>'Cezar',

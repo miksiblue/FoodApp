@@ -14,7 +14,8 @@ class Food extends Model
         'price',
         'description',
         'image',
-        'restaurant_id'
+        'restaurant_id',
+        'calories'
     ];
 
 
@@ -30,5 +31,12 @@ class Food extends Model
         return $this->belongsToMany(Ingredient::class);
     }
 
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
+
+    public function orders(){
+        return $this->belongsToMany(Order::class);
+    }
 
 }

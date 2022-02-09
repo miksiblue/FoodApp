@@ -23,17 +23,10 @@ class FoodController extends Controller
     public function index()
     {
 
-
         $restaurants=Restaurant::all();
          $food=Food::all();
 
-//        $allDataForFood = DB::table('food')
-//            ->join('category_food', 'food.id', '=', 'category_food.food_id')
-//            ->select('*')
-//            ->get();
-//        return $allDataForFood;
-
-      return $food;
+        return response()->json($food, 201);
 
     }
 
@@ -46,27 +39,32 @@ class FoodController extends Controller
     public function store(Request $request)
     {
 
-        //$url = Storage::url('image');
-        $food=new Food;
-        $food->name=$request->input('name');
-        $food->price=$request->input('price');
-        $food->description=$request->input('description');
-        $food->restaurant_id=$request->input('restaurant_id');
-        $food->image=$request->file('image')->store('public');
-
-        $input['category'] = $request->input('category');
-        $food->categories()->attach($input['category']);
-        $input['ingredient'] = $request->input('ingredient');
-        $food->ingredients()->attach($input['ingredient']);
-        $food->save();
-
-
-//        $food = Food::create($request->all());
+//        $food=new Food;
+//        $food->name=$request->input('name');
+//        $food->price=$request->input('price');
+//        $food->description=$request->input('description');
+//        $food->calories=$request->input('calories');
+//        $food->restaurant_id=$request->input('restaurant_id');
+//        $food->image=$request->file('image')->store('products');
+//
+//        $food->save();
 //        $input['category'] = $request->input('category');
 //        $food->categories()->attach($input['category']);
 //        $input['ingredient'] = $request->input('ingredient');
 //        $food->ingredients()->attach($input['ingredient']);
-//        // $this->storeImage($food);
+//        $food->save();
+
+//
+
+        $food = Food::create($request->all());
+        $food->image=$request->file('image')->store('products');
+        $food->save();
+        $input['category'] = $request->input('category');
+        $food->categories()->attach($input['category']);
+        $input['ingredient'] = $request->input('ingredient');
+        $food->ingredients()->attach($input['ingredient']);
+
+
 
         return $food;
     }
@@ -109,30 +107,10 @@ class FoodController extends Controller
         Food::destroy($id);
     }
 
-    public function storeImage($food)
-    {
-        if (\request()->has('image')) {
-            $food->update([
-                'image' => \request()->image->store('app/public/upolads', 'public'),
-            ]);
-            $image = Image::make(public_path('storage/app/public' . $food->image))->fit(3000, 30, null, 'top-left');
-            $image->save();
-        }
-    }
 
     public function random(){
         $randomFood = Food::all()->random(1);
-        return $randomFood;
+        return response()->json($randomFood, 201);
     }
-
-    public function image(Food $food){
-
-
-        $image = Storage::disk('public')->get('slika.jpg');
-        return $image;
-    }
-
-
-
 
 }

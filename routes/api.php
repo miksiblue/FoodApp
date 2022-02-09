@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\V1\FoodController;
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\OrderController;
 use App\Http\Controllers\V1\RestaurantController;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -31,6 +32,9 @@ Route::prefix('v1')->group(function () {
     });
 
 
+
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::post('orders', [OrderController::class, 'store']);
     Route::get('foods', [FoodController::class, 'index']);
     Route::get('foods/{id}',[FoodController::class,'show']);
     Route::post('foods',[FoodController::class,'store']);
@@ -45,7 +49,7 @@ Route::prefix('v1')->group(function () {
     Route::get('foods/{id}',[FoodController::class,'show']);
     Route::post('register',[AuthController::class,'register']);
     Route::post('login',[AuthController::class,'login']);
-    Route::get('image', [FoodController::class, 'image']);
+
 
     Route::get('restaurants', [RestaurantController::class, 'index']);
 
