@@ -169,12 +169,10 @@
                     </tbody>
                 </table>
             </div>
-            <!-- /.col -->
+
         </div>
-        <br><br><br>
-        <div>
-            <small><small>NOTE: This is system generate invoice no need of signature</small></small>
-        </div>
+
+
     </div>
 </div>
 </body>
