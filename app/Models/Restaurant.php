@@ -44,4 +44,8 @@ class Restaurant extends Model
     public function favorites(){
         return $this->belongsToMany(Favorite::class);
     }
+
+    public function comments(){
+        return $this->morphMany(Comment::class,'commentable');
+    }
 }
