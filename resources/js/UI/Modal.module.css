@@ -1,0 +1,101 @@
+.backdrop {
+    position: fixed;
+    z-index: 9999999999999;
+    top: 10vh;
+    left: 5%;
+    width: 90%;
+    /*background-color: #003312;*/
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    /*z-index: 30;*/
+    animation: slide-down 300ms ease-out forwards;
+    /*opacity: 0.5;*/
+    /*height: 500px;*/
+    overflow: scroll;
+}
+
+.score {
+    position: fixed;
+    z-index: 9999999999999;
+    top: 50vh;
+    left: 43%;
+    width: 30%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    /*z-index: 30;*/
+    animation: slide-down 300ms ease-out forwards;
+    /*opacity: 0.5;*/
+    /*height: 500px;*/
+
+}
+
+
+.modal {
+    margin-top: 100px;
+    z-index: 9999999999999;
+    position: fixed;
+    top: 10vh;
+    left: 5%;
+    width: 90%;
+    background-color: #003312;
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    /*z-index: 30;*/
+    animation: slide-down 300ms ease-out forwards;
+    opacity: 0.5;
+    /*height: 500px;*/
+    overflow: scroll;
+/*'background-color': '#003312'*/
+
+
+}
+
+@media (min-width: 768px) {
+    .modal {
+        width: 100rem;
+        left: calc(30% - 25rem);
+    }
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-3rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ customStyles  {
+     z-index: 9999999999999;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    marginRight: -50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    overlfow: scroll;
+}
+
+
+
+
+.category{
+
+position: fixed;
+z-index: 9999999999999;
+top: 30vh;
+left: 35%;
+width: 30%;
+background-color: white;
+padding: 1rem;
+border-radius: 14px;
+box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+}
