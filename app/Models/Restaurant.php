@@ -14,10 +14,34 @@ class Restaurant extends Model
         'phone',
         'email',
         'working_hours',
-        'location'
+        'location',
+        'image'
     ];
 
     public function food(){
         return $this->hasMany(Food::class);
+    }
+
+    public function workpeople(){
+        return$this->hasMany(Workpeople::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+    public function categories(){
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class)->withPivot(['score','watchlist']);
+    }
+
+    public function scores(){
+        return $this->belongsToMany(Score::class);
+    }
+
+    public function favorites(){
+        return $this->belongsToMany(Favorite::class);
     }
 }

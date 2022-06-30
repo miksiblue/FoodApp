@@ -4,7 +4,10 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Food;
+use App\Models\Order;
 use App\Models\Restaurant;
+use App\Models\User;
+use App\Models\Workpeople;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +26,34 @@ class FoodController extends Controller
     public function index()
     {
 
-        $restaurants=Restaurant::all();
-         $food=Food::all();
+
+         $restaurants=Restaurant::all();
+         $food=Food::with('ingredients')->with('categories')->get();
 
         return response()->json($food, 201);
 
+    }
+
+    public function promotions()
+    {
+
+        $promotions=Food::with('restaurant')->where('sale','!=',null)->get();
+
+        return $promotions;
+
+    }
+
+    public function restaurantFood(){
+
+      $korisnik=auth()->user()->id;
+        $zaposleni=Workpeople::where('user_id',$korisnik)->get();
+
+        foreach ($zaposleni as $z){
+            $restoran=Restaurant::where('id',$z->restaurant_id)->with('food')->get();
+        }
+
+//        $food=Food::all();
+        return response()->json($restoran, 201);
     }
 
     /**
@@ -54,19 +80,38 @@ class FoodController extends Controller
 //        $food->ingredients()->attach($input['ingredient']);
 //        $food->save();
 
+//        $all = $request->all();
+//        unset($all['image']);
+//        $restaurant=Food::create($all);
+
+        $restaurant=Food::create($request->all());
+
+        $user=User::all();
+        $user=auth()->user()->id;
+        $workpeople=Workpeople::where('user_id','=',$user)->get();
+        foreach ($workpeople as $w){
+            $sacuvajRestoran=Restaurant::where('id','=',$w->restaurant_id)->get();
+
+            foreach ($sacuvajRestoran as $r){
+                $restaurant->restaurant_id=$r->id;
+            }
+        }
+        $restaurant->image=$request->file('image')->store('products');
+        $restaurant->save();
+
 //
-
-        $food = Food::create($request->all());
-        $food->image=$request->file('image')->store('products');
-        $food->save();
-        $input['category'] = $request->input('category');
-        $food->categories()->attach($input['category']);
-        $input['ingredient'] = $request->input('ingredient');
-        $food->ingredients()->attach($input['ingredient']);
-
-
-
-        return $food;
+//
+//        $food = Food::create($request->all());
+//        $food->image=$request->file('image')->store('products');
+//        $food->save();
+//        $input['category'] = $request->input('category');
+//        $food->categories()->attach($input['category']);
+//        $input['ingredient'] = $request->input('ingredient');
+//        $food->ingredients()->attach($input['ingredient']);
+//
+//
+//
+//        return $food;
     }
 
     /**
@@ -77,6 +122,7 @@ class FoodController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',Food::find($id));
       return  Food::find($id);
     }
 
@@ -89,9 +135,12 @@ class FoodController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $food = Food::find($id);
         $input['category'] = $request->input('category');
         $food->categories()->attach($input['category']);
+//        $food->image=$request->file('image')->store('products');
         $food->update($request->all());
         return $food;
     }
@@ -111,6 +160,27 @@ class FoodController extends Controller
     public function random(){
         $randomFood = Food::all()->random(1);
         return response()->json($randomFood, 201);
+    }
+
+    public function saleFood(Request $request,$id){
+        $food = Food::find($id);
+
+
+
+
+//            $broj=21.99 * 100;
+//        $cena=bcdiv($broj,100,2);
+
+        $procenat=$request->get('p');
+        $racunanjeProcenta=($procenat/100)*$food->price;
+        $food->sale=$food->price-$racunanjeProcenta;
+        $food->update();
+    }
+
+    public function removeAction(Request $request,$id){
+        $food = Food::find($id);
+        $food->sale=NULL;
+        $food->update();
     }
 
 }

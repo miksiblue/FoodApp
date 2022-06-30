@@ -61,30 +61,36 @@ class DatabaseSeeder extends Seeder
 
         $category=Category::create([
             'category'=>'Grill',
+            'icon'=>'FaHamburger'
         ]);
         $category=Category::create([
             'category'=>'Pizza',
+            'icon'=>'FaPizzaSlice'
         ]);
-        $category=Category::create([
-            'category'=>'Mexican',
-        ]);
+
         $category=Category::create([
             'category'=>'Fish',
+            'icon'=>'FaFish'
         ]);
         $category=Category::create([
             'category'=>'Healty',
+            'icon'=>'FaSeedling'
         ]);
         $category=Category::create([
             'category'=>'Pasta',
+            'icon'=>'FaBarcode'
         ]);
         $category=Category::create([
             'category'=>'Sweets',
+            'icon'=>'FaCandyCane'
         ]);
         $category=Category::create([
             'category'=>'Risotto',
+            'icon'=>'FaMortarPestle'
         ]);
         $ingredient=Ingredient::create([
             'ingredient'=>'Pelat',
+
         ]);
         $ingredient=Ingredient::create([
             'ingredient'=>'Maslinovo ulje',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateUserrolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('userroles', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->string('icon');
+            $table->string('role');
             $table->timestamps();
         });
 
-
-
+        $roles=['User','Admin','Staff','Manager'];
+        foreach ($roles as $role){
+            \App\Models\Userrole::create(['role'=>$role]);
+        }
     }
 
     /**
@@ -31,6 +32,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('userroles');
     }
 }

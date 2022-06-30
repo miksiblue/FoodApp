@@ -15,8 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category=Category::all();
-        $category=Category::all();
+        $category=Category::with('food')->get();
+
+
         return $category;
     }
 
@@ -66,4 +67,6 @@ class CategoryController extends Controller
     {
         //
     }
+
+
 }

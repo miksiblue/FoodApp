@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class AddImageToRestaurantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('category');
-            $table->string('icon');
-            $table->timestamps();
+        Schema::table('restaurants', function (Blueprint $table) {
+            $table->string('image',3000)->nullable();
         });
-
-
-
     }
 
     /**
@@ -31,6 +25,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('restaurants', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 }
