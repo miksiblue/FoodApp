@@ -58,7 +58,12 @@ class FoodController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $comments=Food::with('comments.replies')->with('comments.user')->find($id);
+        $this->authorize('view', $comments);
+
+        return view('admin.comment.create', compact('comments'));
+
     }
 
     /**

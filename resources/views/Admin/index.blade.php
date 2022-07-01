@@ -27,6 +27,7 @@
                                                 <th class="px-4 py-3">Calories</th>
                                                 <th class="px-4 py-3">Price</th>
                                                 <th class="px-4 py-3">Sale</th>
+                                                <th class="px-4 py-3">Comments</th>
                                              @can('access-staff')   <th class="px-4 py-3">Edit</th> @endcan
                                             </tr>
                                             </thead>
@@ -60,9 +61,14 @@
                         </span>
                                                     </td>
 
+                                                    <td class="px-4 py-3 text-sm">
+                                                        <a href="/comments/{{$food->id}}">show</a>
+                                                    </td>
+
                                                     @can('access-staff')
                                                     <td class="px-4 py-3 text-sm">
                                                         <button>Edit</button>
+
 
                                                         <form action="food/delete/{{$food->id}}" method="POST">
                                                             @method('DELETE')
