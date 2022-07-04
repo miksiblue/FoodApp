@@ -46,6 +46,6 @@ class Restaurant extends Model
     }
 
     public function comments(){
-        return $this->morphMany(Comment::class,'commentable');
+        return $this->morphMany(Comment::class,'commentable')->whereNull('reply_id');
     }
 }

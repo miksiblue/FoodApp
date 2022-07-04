@@ -287,6 +287,11 @@ public function proba(Request $request){
     }
 
 
+public function showComments($id){
 
+    $comments=Restaurant::with('comments.replies')->with('comments.user')->find($id);
+
+        return view('admin.comment.restaurantComments',compact('comments'));
+}
 
 }

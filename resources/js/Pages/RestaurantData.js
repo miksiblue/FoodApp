@@ -49,6 +49,10 @@ data.restaurant_id=props.idr;
     }
 console.log(data.score)
 
+
+
+
+
     return (
 <div>
 
@@ -71,16 +75,6 @@ console.log(data.score)
                     <div style={{direction: "row" }}>
                     <h1 style={{'padding-left': '30px'}}><b>{props.nameRestoran}</b></h1>
 
-                    {/*<p style={{'float':'right'}} className="bg-white overflow-hidden shadow-sm sm:rounded-lg"*/}
-                    {/*   onClick={() => {*/}
-
-                    {/*       setModalIsOpen1(true)*/}
-                    {/*   }}*/}
-                    {/*>*/}
-                    {/*    <div style={{display: "flex" ,flexDirection: "row"}}>*/}
-                    {/*        <FiShoppingCart size={60} /> <b style={{'fontSize':'10'}}><CartLenght></CartLenght></b>*/}
-                    {/*    </div>*/}
-                    {/*</p>*/}
                     </div>
                 </Card.Title>
                 <hr/>
@@ -102,6 +96,12 @@ console.log(data.score)
                             <AiOutlineStar style={{'margin-left':'30px'}} />
 <p style={{'padding-left':'3px'}} onClick={()=>setModalIsOpen(true)}>Score : {parseFloat(props.ocena).toFixed(2)}</p>
 
+
+
+                            <a   style={{'margin-left':'30px',
+                                'text-decoration': 'none',
+                                'color': 'black'
+                            }} href={`/restaurantComments/${props.idr}`}> Comments </a>
                             <Modal className={classes1.score}   isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
 
                                 Rate Restaurant
@@ -109,8 +109,6 @@ console.log(data.score)
 
                                 <button className="btn btn-primary btn-sm" type="submint"> Rate</button>
 <br/>
-
-
 
 
                                 <input type="radio"  onClick={()=>data.score=1} name="score" /> 1
@@ -127,10 +125,6 @@ console.log(data.score)
          </div>
                     </div>
 
-                    {/*<CartProvider>*/}
-                    {/*<Link to='/korpa' style={{'text-decoration':'none'}}><p style={{'padding-right': '100px','text-decoration': 'none',*/}
-                    {/*    'color': 'black'}}><b> Korpa </b> </p></Link>*/}
-                    {/*    </CartProvider>*/}
 
                     <Modal style={{'z-index': '99999999999'}} className={classes1.modal}   isOpen={modalIsOpen1} onRequestClose={() => setModalIsOpen1(false)}>
                         <div>
@@ -145,6 +139,9 @@ console.log(data.score)
 
             </Card.Body>
         </Card>
+
+
+      andjela
     </div>
 </div>
     )

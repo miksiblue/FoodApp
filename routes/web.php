@@ -121,10 +121,14 @@ Route::get('/zaposleni', [\App\Http\Controllers\V1\WorkingpeopleController::clas
 Route::get('proba1',[\App\Http\Controllers\V1\AuthController::class,'findUser']);
 Route::post('login',[\App\Http\Controllers\V1\AuthController::class,'login']);
 //Route::get('comments',[\App\Http\Controllers\Admin\CommentController::class,'create']);
-Route::post('comments/store/{id}',[\App\Http\Controllers\Admin\CommentController::class,'store']);
-Route::post('comments/reply/{id}',[\App\Http\Controllers\Admin\CommentController::class,'reply']);
+Route::post('comments/store/{id}',[\App\Http\Controllers\Admin\CommentController::class,'storeFoodComments']);
+Route::post('comments/reply/{id}',[\App\Http\Controllers\Admin\CommentController::class,'replyFoodComments']);
 
 Route::get('comments/{id}',[\App\Http\Controllers\Admin\FoodController::class,'show']);
+Route::get('restaurantComments/{id}',[\App\Http\Controllers\V1\RestaurantController::class,'showComments']);
+Route::post('comments/store1/{id}',[\App\Http\Controllers\Admin\CommentController::class,'storeRestaurantComments']);
+Route::post('comments/reply1/{id}',[\App\Http\Controllers\Admin\CommentController::class,'replyRestaurantComments']);
+
 
 Route::controller(\App\Http\Controllers\V1\FoodController::class)->group(function (){
     Route::put('removeAction/{id}','removeAction');

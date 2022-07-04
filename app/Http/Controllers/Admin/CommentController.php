@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
-    public function store(Request $request, Food $food,$id)
+    public function storeFoodComments(Request $request,$id)
     {
         $comment = new Comment;
         $comment->body = $request->body;
@@ -22,17 +22,39 @@ class CommentController extends Controller
         return back();
     }
 
-    public function reply(Request $request, Food $food,$id)
+    public function replyFoodComments(Request $request,$id)
     {
         $request->validate([
             'body' => 'required'
         ]);
 
         $input = $request->all();
-
         $input['user_id'] = auth()->user()->id;
         $food = Food::find($id);
         $food->comments()->create($input);
+        return back();
+    }
+
+    public function storeRestaurantComments(Request $request,$id)
+    {
+        $comment = new Comment;
+        $comment->body = $request->body;
+        $comment->user_id=auth()->user()->id;
+        $restaurant = Restaurant::find($id);
+        $restaurant->comments()->save($comment);
+        return back();
+    }
+
+    public function replyRestaurantComments(Request $request,$id)
+    {
+        $request->validate([
+            'body' => 'required'
+        ]);
+
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        $restaurant = Restaurant::find($id);
+        $restaurant->comments()->create($input);
         return back();
     }
 

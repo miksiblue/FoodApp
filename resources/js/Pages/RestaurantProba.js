@@ -235,11 +235,6 @@ export default function RestaurantProba(props) {
         <div style={{'padding-top':'20px'}}>
 
 
-
-
-
-
-
            <p style={{'font-family': 'serif',
                'font-style': 'italic',
                'font-size': '17px',
