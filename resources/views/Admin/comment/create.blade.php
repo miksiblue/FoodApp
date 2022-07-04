@@ -1,10 +1,28 @@
+
 <x-admin-layout>
+    @if (session()->has('message'))
+        <div style="margin-left: 80%"  x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+            <div   class="alert alert-success">
+                <h1  id="message" style="color: green; background: #b6edb6; border-radius: 4px;height: 30px;
+    font-weight: 500;">Success {{session()->get('message')}}</h1>
+            </div>
+        </div>
+    @endif
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js"></script>
+
+
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Comments for {{$comments->name}}
     </h2>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{--         @if(session()->has('message'))--}}
+            {{--             <h1 id="message" style="color: green; background: #b6edb6; border-radius: 4px;height: 30px;--}}
+            {{--    font-weight: 500;">Success {{session()->get('message')}}</h1>--}}
+            {{--             --}}
+            {{--            @endif--}}
 
 
             <form action="/comments/store/{{$comments->id}}" method="post">
@@ -27,7 +45,8 @@
             @foreach($comments->comments as $comment)
                 <div>
                     <div style="padding-bottom: 20px">
-                        <p class="text-gray-700 dark:text-gray-400"><b>   {{$comment->user->name}}  </b> {{$comment->created_at}}</p>
+                        <p class="text-gray-700 dark:text-gray-400">
+                            <b>   {{$comment->user->name}}  </b> {{$comment->created_at}}</p>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
                             {{$comment->user->userrole->role}}
                         </p>
@@ -65,6 +84,7 @@
     </div>
     </div>
 </x-admin-layout>
+
 
 
 

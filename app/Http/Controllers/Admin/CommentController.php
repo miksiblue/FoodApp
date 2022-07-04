@@ -19,7 +19,10 @@ class CommentController extends Controller
         $comment->user_id=auth()->user()->id;
         $food = Food::find($id);
         $food->comments()->save($comment);
+
+        session()->flash('message','message');
         return back();
+//            ->with('message','comment');
     }
 
     public function replyFoodComments(Request $request,$id)
