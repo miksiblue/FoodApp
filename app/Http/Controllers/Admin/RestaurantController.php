@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\RestaurantMailJob;
+use App\Mail\NewRestaurantMail;
+use App\Mail\WelcomeMail;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RestaurantController extends Controller
 {
@@ -36,6 +40,9 @@ class RestaurantController extends Controller
         $restaurant=Restaurant::create($request->all());
         $restaurant->image=$request->file('image')->store('products');
         $restaurant->save();
+
+//        Mail::to('test@gmail.com')->send(new NewRestaurantMail($restaurant));
+        RestaurantMailJob::dispatch($restaurant);
         return redirect()->back();
 
     }
