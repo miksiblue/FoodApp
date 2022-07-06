@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\BirthdayMailJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +17,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+//        $schedule->call('App\Console\Kernel@imefunkcije')->dailyAt('00:00') ->evryMinute();
+        $schedule->call('App\Console\Kernel@birthdayJob')->dailyAt('12:00');
     }
 
     /**
@@ -29,4 +32,12 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    public function birthdayJob()
+    {
+        BirthdayMailJob::dispatch();
+    }
+
+
+
 }
