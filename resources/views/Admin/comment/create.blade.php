@@ -30,6 +30,9 @@
                     <textarea
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                         name="body" id="" cols="90" rows="10"></textarea>
+                    <input type="hidden" name="commentable_type" value="App\Models\Food"/>
+                    <input type="hidden" name="user_id" value="{{auth()->user()->id}}"/>
+                    <input type="hidden" name="commentable_id" value="{{$comments->id}}"/>
                     <button class="text-gray-700 dark:text-gray-400" style="float:right"> Add comment</button>
                 </div>
                 @csrf
@@ -62,6 +65,9 @@
                                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                 type="text" name="body" class="form-control"/>
                             <input type="hidden" name="reply_id" value="{{ $comment->id }}"/>
+                            <input type="hidden" name="commentable_id" value="{{$comments->id}}"/>
+                            <input type="hidden" name="commentable_type" value="App\Models\Food"/>
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}"/>
                             <input type="submit" class="text-gray-700 dark:text-gray-400" value="Reply"
                                    style="float: right"/>
                         </div>

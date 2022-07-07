@@ -1,5 +1,8 @@
+<div style="background: #f3f4f6;">
 <div style="
 
+    padding-top: 150px;
+    padding-bottom: 150px;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -19,15 +22,20 @@
 <a style="margin-left: 40px" href="http://127.0.0.1:8000/dashboard">All restaurants</a>
 
 <div style="
-            display: flex;
-            flex-direction: row;
-            justify-content: center; padding-bottom: 20px;
-            background:white;
-            padding-top:30px;
-            font-family: serif;
-            font-style: italic;
-            font-size: 17px;
-            padding-bottom: 60px;
+    padding-top: 15px;
+               display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 20px;
+    background: white;
+    /* padding-top: 30px; */
+    font-family: serif;
+    font-style: italic;
+    font-size: 17px;
+    /* padding-bottom: 60px; */
+    margin-top: -90px;
+    margin-right: 20%;
+    margin-left: 20%;
         ">
 
 
@@ -36,16 +44,19 @@
     </h2>
 </div>
 
-<div class="py-12" style="margin-left: 30%;    margin-right: 5%">
+<div class="py-12" style="margin-left: 30%;    margin-right: 5%;     margin-top: 40px;">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="margin-right:40%">
 
 
-        <form action="/comments/store1/{{$comments->id}}" method="post">
+        <form action="/comments/store/{{$comments->id}}" method="post">
             <div class="card-body">
                     <textarea
                         style="width: 100%"
                         name="body" id="" cols="90" rows="10"></textarea>
                 <br>
+                <input type="hidden" name="commentable_type" value="App\Models\Restaurant"/>
+                <input type="hidden" name="user_id" value="{{auth()->user()->id}}"/>
+                <input type="hidden" name="commentable_id" value="{{$comments->id}}"/>
                 <button type="submit" class="btn btn-dark"> Add comment</button>
             </div>
             @csrf
@@ -68,7 +79,7 @@
 
                 <p class="text-gray-700 dark:text-gray-400"> {{$comment->body}}</p>
 
-                <form method="post" action="/comments/reply1/{{$comments->id}}">
+                <form method="post" action="/comments/reply/{{$comments->id}}">
                     @csrf
                     <div class="form-group">
 
@@ -76,6 +87,9 @@
                             style="    --tw-border-opacity: 1;border-color: rgb(75 85 99 / var(--tw-border-opacity));margin-top: 0.25rem;border-width: 1px;border-radius: 0px;padding-top: 0.5rem;padding-right: 0.75rem;padding-bottom: 0.5rem;padding-left: 0.75rem;--tw-shadow: 0 0 #0000;width: 100%"
                             type="text" name="body" class="form-control"/>
                         <input type="hidden" name="reply_id" value="{{ $comment->id }}"/>
+                        <input type="hidden" name="commentable_id" value="{{$comments->id}}"/>
+                        <input type="hidden" name="commentable_type" value="App\Models\Restaurant"/>
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}"/>
                         <input type="submit" class="text-gray-700 dark:text-gray-400" value="Reply"
                         />
                     </div>
@@ -95,7 +109,7 @@
     </div>
 </div>
 </div>
-
+</div>
 
 
 

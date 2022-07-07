@@ -12,53 +12,24 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
-    public function storeFoodComments(Request $request,$id)
+    public function storeComments(Request $request,$id)
     {
-        $comment = new Comment;
-        $comment->body = $request->body;
-        $comment->user_id=auth()->user()->id;
-        $food = Food::find($id);
-        $food->comments()->save($comment);
+
+        $comment=Comment::create($request->all());
 
         session()->flash('message','message');
         return back();
 //            ->with('message','comment');
     }
 
-    public function replyFoodComments(Request $request,$id)
+    public function replyComments(Request $request,$id)
     {
-        $request->validate([
-            'body' => 'required'
-        ]);
+        $comment=Comment::create($request->all());
 
-        $input = $request->all();
-        $input['user_id'] = auth()->user()->id;
-        $food = Food::find($id);
-        $food->comments()->create($input);
         return back();
     }
 
-    public function storeRestaurantComments(Request $request,$id)
-    {
-        $comment = new Comment;
-        $comment->body = $request->body;
-        $comment->user_id=auth()->user()->id;
-        $restaurant = Restaurant::find($id);
-        $restaurant->comments()->save($comment);
-        return back();
-    }
 
-    public function replyRestaurantComments(Request $request,$id)
-    {
-        $request->validate([
-            'body' => 'required'
-        ]);
 
-        $input = $request->all();
-        $input['user_id'] = auth()->user()->id;
-        $restaurant = Restaurant::find($id);
-        $restaurant->comments()->create($input);
-        return back();
-    }
 
 }

@@ -6,7 +6,7 @@
 
         </div>
         <p class="text-gray-700 dark:text-gray-400"> {{$comment->body}}</p>
-        <form method="post" action="/comments/reply1/{{$comments->id}}">
+        <form method="post" action="/comments/reply/{{$comments->id}}">
             @csrf
             <div class="form-group">
                 <input
@@ -23,6 +23,10 @@
     width: 100%"
                     type="text" name="body" class="form-control"/>
                 <input type="hidden" name="reply_id" value="{{ $comment->id }}"/>
+                <input type="hidden" name="commentable_id" value="{{$comment->commentable_id}}"/>
+                <input type="hidden" name="commentable_type" value="App\Models\Restaurant"/>
+                <input type="hidden" name="user_id" value="{{auth()->user()->id}}"/>
+
             </div>
             <div class="form-group">
                 <input type="submit" class="text-gray-700 dark:text-gray-400" value="Reply"/>
