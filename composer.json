@@ -13,8 +13,10 @@
         "inertiajs/inertia-laravel": "^0.5.4",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
+        "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.5",
         "stephenjude/api-test-helper": "^1.0",
+        "stevebauman/location": "^6.5",
         "styde/enlighten": "^0.7.1",
         "tightenco/ziggy": "^1.0"
     },

@@ -35,7 +35,6 @@ class RestaurantMailJob implements ShouldQueue
     public function handle()
     {
 
-        sleep(10);
         Mail::to('test@gmail.com')->send(new NewRestaurantMail($this->restaurant));
     }
 }

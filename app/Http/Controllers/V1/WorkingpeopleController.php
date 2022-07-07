@@ -11,7 +11,9 @@ use App\Models\Restaurant;
 use App\Models\Score;
 use App\Models\User;
 use App\Models\Workpeople;
+use Carbon\Carbon;
 use DeprecationTests\Foo;
+use GeoIp2\Record\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,115 +28,122 @@ class WorkingpeopleController extends Controller
     {
 
 
-        $user=  auth()->user();
-
-        $workpeople=Workpeople::where('user_id','=',$user->id)->get();
-
-        foreach ($workpeople as $w){
-        $restoran=Restaurant::where('id','=',$w->restaurant_id)->with('orders')->get();
-
-        }
-
-
-        $user1=auth()->user()->id;
-        $workpeople1=Workpeople::where('user_id','=',$user1)->get();
-        foreach ($workpeople1 as $w){
-            $sacuvajRestoran=Restaurant::where('id','=',$w->restaurant_id)->get();
-
-
-        }
-
-
-
-        $favorites=User::with('restaurants')->find(3);
-
-
-
-        $r=DB::table('restaurant_user')->where('user_id',13)->where('restaurant_id',2)->get();
-        $proba=User::with('restaurants',)->where('id',3)->whereHas('restaurants',function (Builder $query) {
-            $query->where('restaurant_id', 35);
-            })->get();
-
-
-        $restaurants=Restaurant::with('food.ingredients')->with('food.categories.food')->with('categories.food')
-            ->with('users')->whereHas('users',function(Builder $q){
-                $q->where('user_id',3);
-            })
-            ->get();
-
-
-
-//      $averageFilmScoreJoin=DB::table('films')
-//            ->join('film_user' , 'films.id' ,'=' , 'film_user.film_id')
-//            ->select('films.naziv','films.opis','film_id', \DB::raw('avg(score) as avg'))
-//            ->groupBy('films.naziv','film_id','films.opis')
-//            ->orderByDesc('score')
-//            ->get();
-
-
-
-
-
-
-//        $ocene1=DB::table('scores')->where('restaurant_id','=',$id)->sum('score');
-//        $svi=DB::table('scores')->where('restaurant_id','=',$id)->count('user_id');
+//        $user=  auth()->user();
 //
-//        $ocene=$ocene1/$svi;
-
-        $ocena1=DB::table('restaurant_user')->where('restaurant_id',2)->sum('score');
-
-
-
-
-$akcija=Restaurant::with('food')->whereHas('food',function(Builder $b){
-    $b->where('sale','!=',null);
-})->get();
-
-
-//$korisnik=Auth::user();
-$korisnik1=Auth::user()->roles;
-
-$korisnik2=$korisnik1->first();
-//$korisnik=$korisnik2->name;
-
-//$korisnik=Auth::user()->roles->where('name','menadzer')->first()->name;
-//$korisnik=Auth::user()->roles->where('name','menadzer')->pluck('name');
-//$korisnik=Auth::user()->isAdmin();
-
-$korisnik=1;
-
-//            $ljudi = auth()->user();
-////        $workpeople = Workpeople::where('user_id', '=', $ljudi->id)->get();
+//        $workpeople=Workpeople::where('user_id','=',$user->id)->get();
+//
+//        foreach ($workpeople as $w){
+//        $restoran=Restaurant::where('id','=',$w->restaurant_id)->with('orders')->get();
+//
+//        }
+//
+//
+//        $user1=auth()->user()->id;
+//        $workpeople1=Workpeople::where('user_id','=',$user1)->get();
+//        foreach ($workpeople1 as $w){
+//            $sacuvajRestoran=Restaurant::where('id','=',$w->restaurant_id)->get();
+//
+//
+//        }
+//
+//
+//
+//        $favorites=User::with('restaurants')->find(3);
+//
+//
+//
+//        $r=DB::table('restaurant_user')->where('user_id',13)->where('restaurant_id',2)->get();
+//        $proba=User::with('restaurants',)->where('id',3)->whereHas('restaurants',function (Builder $query) {
+//            $query->where('restaurant_id', 35);
+//            })->get();
+//
+//
+//        $restaurants=Restaurant::with('food.ingredients')->with('food.categories.food')->with('categories.food')
+//            ->with('users')->whereHas('users',function(Builder $q){
+//                $q->where('user_id',3);
+//            })
+//            ->get();
+//
+//
+//
+////      $averageFilmScoreJoin=DB::table('films')
+////            ->join('film_user' , 'films.id' ,'=' , 'film_user.film_id')
+////            ->select('films.naziv','films.opis','film_id', \DB::raw('avg(score) as avg'))
+////            ->groupBy('films.naziv','film_id','films.opis')
+////            ->orderByDesc('score')
+////            ->get();
+//
+//
+//
+//
+//
+//
+////        $ocene1=DB::table('scores')->where('restaurant_id','=',$id)->sum('score');
+////        $svi=DB::table('scores')->where('restaurant_id','=',$id)->count('user_id');
 ////
-////        foreach ($workpeople as $w) {
-////            $ordersActive1 = Restaurant::where('id', '=', $w->restaurant_id)->with('orders')->get();
-////
-////            foreach ($ordersActive1 as $o) {
-////                $ordersActive = Order::where('restaurant_id', '=', $o->id)->with('food')->get();
-///
+////        $ocene=$ocene1/$svi;
+//
+//        $ocena1=DB::table('restaurant_user')->where('restaurant_id',2)->sum('score');
+//
+//
+//
+//
+//$akcija=Restaurant::with('food')->whereHas('food',function(Builder $b){
+//    $b->where('sale','!=',null);
+//})->get();
+//
+//
+////$korisnik=Auth::user();
+//$korisnik1=Auth::user()->roles;
+//
+//$korisnik2=$korisnik1->first();
+////$korisnik=$korisnik2->name;
+//
+////$korisnik=Auth::user()->roles->where('name','menadzer')->first()->name;
+////$korisnik=Auth::user()->roles->where('name','menadzer')->pluck('name');
+////$korisnik=Auth::user()->isAdmin();
+//
+//$korisnik=1;
+//
+////            $ljudi = auth()->user();
+//////        $workpeople = Workpeople::where('user_id', '=', $ljudi->id)->get();
+//////
+//////        foreach ($workpeople as $w) {
+//////            $ordersActive1 = Restaurant::where('id', '=', $w->restaurant_id)->with('orders')->get();
+//////
+//////            foreach ($ordersActive1 as $o) {
+//////                $ordersActive = Order::where('restaurant_id', '=', $o->id)->with('food')->get();
+/////
+//
+////        $workPeople=Workpeople::where('user_id','=',Auth::id())->first()->restaurant_id;
+//
+//
+//        $najdiZaposlenog=Workpeople::where('user_id','=',Auth::id())->first()->restaurant_id;
+//
+//
+//
+//$restoranUkomRadi=Restaurant::where('id',$najdiZaposlenog)->first()->id;
+//
+//
+//
+//
+//
+////$workPeople=Order::where('restaurant_id',$restoranUkomRadi)->get();
+//
+//
+//        $food=Food::all();
+//
+//        $workPeople=Auth::user()->workpeople->restaurant_id;
+//
+//        $andjela=\auth()->user()->workpeople->restaurant->id;
 
-//        $workPeople=Workpeople::where('user_id','=',Auth::id())->first()->restaurant_id;
+$dan=Carbon::now();
 
+$user=\auth()->user();
 
-        $najdiZaposlenog=Workpeople::where('user_id','=',Auth::id())->first()->restaurant_id;
-
-
-
-$restoranUkomRadi=Restaurant::where('id',$najdiZaposlenog)->first()->id;
-
-
-
-
-
-//$workPeople=Order::where('restaurant_id',$restoranUkomRadi)->get();
-
-
-        $food=Food::all();
-
-        $workPeople=Auth::user()->workpeople->restaurant_id;
-
-        $andjela=\auth()->user()->workpeople->restaurant->id;
-        return view('proba',compact('akcija','korisnik','workPeople','andjela','food'));
+$day=Carbon::now()->day;
+        $users=User::whereDay('created_at',$day)->get();
+        return view('proba',compact('dan','user','users'));
     }
 
     public function permisijaZaPrikazNarudzbina(){
