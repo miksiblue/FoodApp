@@ -39,4 +39,8 @@ class Food extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function comments(){
+        return $this->morphMany(Comment::class,'commentable')->whereNull('reply_id');
+    }
+
 }
